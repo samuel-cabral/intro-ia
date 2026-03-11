@@ -3,24 +3,20 @@ import os
 from dotenv import load_dotenv
 from openai import OpenAI
 
-load_dotenv()
+load_dotenv(os.path.join(os.path.dirname(__file__), ".env"))
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 
 def chat(user_message: str) -> str:
     response = client.chat.completions.create(
-        model="gpt-4o-mini",
+        model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content": "Você é um assistente útil."},
+            {"role": "system", "content": "You are a experienced software engineer. Return only clean and qualified code. Don't return any other text."},
             {"role": "user", "content": user_message},
         ],
     )
 
     return response.choices[0].message.content
 
-
-if __name__ == "__main__":
-    user_input = input("Você: ")
-    reply = chat(user_input)
-    print(f"GPT: {reply}")
+print(chat("Write a hello world program in Python"))
