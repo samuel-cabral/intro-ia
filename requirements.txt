@@ -2,3 +2,6 @@ openai
 python-dotenv
 black
 ruff
+jupyter
+scikit-learn
+pandas
